@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>goto</title>
+</head>
+
+<body>
+    <script>
+        (async () => {
+            const body = document.body;
+            try {
+                const goto = window.location.search.slice(1);
+                console.log(goto);
+                if (goto == '')
+                    throw "🎹🎻";
+
+                const res = await fetch(`urls/${goto}`);
+
+                if (res.status != 200)
+                    throw `${res.status} ${res.statusText}`;
+
+                const url = await (await res.blob()).text();
+
+                window.location.href = url;
+
+                await new Promise(r => setTimeout(() => r(), 3e3));
+
+                body.innerHTML = 'no redirection? <a>click here</a>';
+                body.querySelector('a').href = url;
+
+            } catch (msg) {
+                body.innerHTML = msg;
+            }
+        })()
+    </script>
+</body>
+
+<noscript>javascript?</noscript>
+
+</html>
