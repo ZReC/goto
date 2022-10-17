@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <title>ZReC basic rng</title>
+</head>
+
+<body>
+    <script>
+        const body = document.body;
+
+        body.innerHTML = '\
+        <div> </div>\
+        <br>\
+        <input type="text" id="dic" value="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_-">\
+        <input type="text" id="len" value="6">\
+        <button onclick="gen()">⟳</button>';
+
+        const div = body.querySelector("div");
+        function gen() {
+            const dic = body.querySelector("#dic").value;
+            const len = Math.min(Math.max(1, new Number(body.querySelector("#len").value)), 32) || 1;
+            let name = '';
+
+            if (dic.length > 0)
+                for (let i = 0; i < len; i++)
+                    name += dic[Math.floor(Math.random() * dic.length)];
+
+            div.textContent = name || ' ';
+        } gen();
+    </script>
+    <noscript>javascript?</noscript>
+</body>
+
+</html>
